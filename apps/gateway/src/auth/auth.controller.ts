@@ -2,6 +2,7 @@ import { Body, Controller, Get, Post, Delete, Param, UseGuards } from "@nestjs/c
 import { AuthService } from "./auth.service";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { LoginDto } from "./dto/login.dto";
+import { JwtAuthGuard } from "./guards/jwt-auth.guard";
 import {
   ApiTags,
   ApiOperation,
@@ -43,6 +44,7 @@ export class AuthController {
   }
 
   @Get("users")
+  @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: "Get all users" })
   @ApiResponse({
