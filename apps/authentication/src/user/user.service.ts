@@ -1,12 +1,14 @@
-import { Injectable, UnauthorizedException } from "@nestjs/common";
+import { Inject, Injectable, UnauthorizedException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { User } from "./schemas/user.schema";
-import { CreateUserDto } from "./dto/create-user.dto";
-import { LoginDto } from "./dto/login.dto";
+import { CreateUserDto } from "../../../../common/dto/create-user.dto";
+import { LoginDto } from "../../../../common/dto/login.dto";
 import { JwtService } from "@nestjs/jwt";
 import * as bcrypt from "bcrypt";
 import { NotFoundException } from '@nestjs/common';
+import authConfig from "apps/authentication/src/config/auth.config";
+import { ConfigType } from "@nestjs/config";
 
 
 
@@ -15,7 +17,9 @@ export class UserService {
 
   constructor(
     @InjectModel(User.name) private readonly userModel: Model<User>,
-    private jwtService: JwtService
+    private jwtService: JwtService,
+    @Inject(authConfig.KEY)
+    private readonly authConfiguration: ConfigType<typeof authConfig>,
   ) { }
 
   // Creates a new user with hashed password
@@ -77,10 +81,13 @@ export class UserService {
 
   // Generates a JWT token for a user
   private generateToken(user: User) {
+    console.log('JWT Secret:', this.authConfiguration.secret);
     const payload = { email: user.email, sub: user._id };
-    const secret = "secret";
     return {
-      access_token: this.jwtService.sign(payload, { secret, expiresIn: "1h" }),
+      access_token: this.jwtService.sign(payload, {
+        secret: this.authConfiguration.secret,
+        expiresIn: this.authConfiguration.expiresIn,
+      }),
     };
   }
 

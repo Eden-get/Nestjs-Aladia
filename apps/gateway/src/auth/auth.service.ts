@@ -1,7 +1,7 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { ClientProxy } from "@nestjs/microservices";
-import { CreateUserDto } from "./dto/create-user.dto";
-import { LoginDto } from "./dto/login.dto";
+import { CreateUserDto } from "../../../../common/dto/create-user.dto";
+import { LoginDto } from "../../../../common/dto/login.dto";
 import { firstValueFrom } from "rxjs";
 
 @Injectable()

@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Post, Delete, Param, UseGuards } from "@nestjs/common";
 import { AuthService } from "./auth.service";
-import { CreateUserDto } from "./dto/create-user.dto";
-import { LoginDto } from "./dto/login.dto";
+import { CreateUserDto } from "../../../../common/dto/create-user.dto";
+import { LoginDto } from "../../../../common/dto/login.dto";
 import { JwtAuthGuard } from "./guards/jwt-auth.guard";
 import {
   ApiTags,
