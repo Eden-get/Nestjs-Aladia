@@ -1,12 +1,16 @@
-/**
- * Main module for the Gateway application.
- * Imports and configures all necessary modules for the gateway service.
- */
+
 import { Module } from "@nestjs/common";
 import { AuthModule } from "./auth/auth.module";
+import { ConfigModule } from "@nestjs/config";
+import authConfig from "@auth-config";
 
 @Module({
-  imports: [AuthModule], // Import AuthModule for handling authentication
+  imports: [
+    ConfigModule.forRoot({
+      load: [authConfig],
+      isGlobal: true,
+    }),
+    AuthModule],
   controllers: [],
   providers: [],
 })

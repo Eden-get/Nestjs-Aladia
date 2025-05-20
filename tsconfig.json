@@ -19,7 +19,7 @@
     "noFallthroughCasesInSwitch": false,
     "paths": {
       "@auth-config": [
-        "apps/authentication/src/config/auth.config"
+        "config/auth.config"
       ]
     }
   }

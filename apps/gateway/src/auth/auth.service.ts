@@ -12,7 +12,6 @@ export class AuthService {
   ) { }
 
   // Registers a new user by sending a request to the authentication service
-
   async register(createUserDto: CreateUserDto) {
     return firstValueFrom(
       this.authClient.send({ cmd: "register" }, createUserDto)
@@ -20,17 +19,16 @@ export class AuthService {
   }
 
   // Authenticates a user by sending login credentials to the authentication service
-
   async login(loginDto: LoginDto) {
     return firstValueFrom(this.authClient.send({ cmd: "login" }, loginDto));
   }
 
   // Retrieves all users from the authentication service
-
   async getAllUsers() {
     return firstValueFrom(this.authClient.send({ cmd: "get_users" }, {}));
   }
 
+  // Deletes user from the authentication service
   async deleteUser(id: string) {
     return firstValueFrom(this.authClient.send({ cmd: "delete-user" }, id));
   }

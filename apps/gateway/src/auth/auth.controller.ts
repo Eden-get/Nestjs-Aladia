@@ -70,6 +70,4 @@ export class AuthController {
   async deleteUser(@Param("id") id: string) {
     return this.authService.deleteUser(id);
   }
-
-
 }
